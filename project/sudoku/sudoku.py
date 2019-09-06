@@ -17,6 +17,5 @@ sudoku = [
 #for i in sudoku:
     #print(i)
 
-mgr = m.matrix(sudoku)
-mgr.matrix_print()
+mgr = m.matrix()
 del mgr
