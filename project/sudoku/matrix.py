@@ -7,7 +7,7 @@ class matrix:
     def __init__(self):
         # 1、将初始数据读入到matrix_all列表中
         self.matrix_all = []
-        reader = csv.reader(open('data.csv'))
+        reader = csv.reader(open('data_lvl_four.csv'))
         y = 0
         length = 0
         for line in reader:
@@ -72,6 +72,25 @@ class matrix:
         self.matrix_column_3 = []
         self.matrix_columns.append(self.matrix_column_3)
 
+    def init_parts_lvl_four(self):
+        self.matrix_parts = []
+        self.matrix_part_0 = []
+        self.matrix_parts.append(self.matrix_part_0)
+        self.matrix_part_0.append(self.matrix_row_0[0])
+        self.matrix_part_0.append(self.matrix_row_0[1])
+        self.matrix_part_0.append(self.matrix_row_1[0])
+        self.matrix_part_0.append(self.matrix_row_1[1])        
+        self.matrix_part_1 = []
+        self.matrix_parts.append(self.matrix_part_1)
+        self.matrix_part_1.append(self.matrix_row_0[2])
+        self.matrix_part_1.append(self.matrix_row_0[3])
+        
+        self.matrix_part_2 = []
+        self.matrix_parts.append(self.matrix_part_2)
+        self.matrix_part_3 = []
+        self.matrix_parts.append(self.matrix_part_3)
+        
+        
     def init_nine_lvl(self):
         self.matrix_rows = []
         self.matrix_row_0 = []
