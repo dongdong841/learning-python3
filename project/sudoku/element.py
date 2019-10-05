@@ -1,7 +1,10 @@
-class element:
+import subject
+
+class element(subject.subject):
     chg_flag = False
 
     def __init__(self, x, y, v):
+        subject.subject.__init__(self)
         self.x = x
         self.y = y
         self.value = v
@@ -19,5 +22,7 @@ class element:
 
     def chg_val(val):
         self.value = val
+        if val != 0:
+            self.possible.clear()
         chg_flag = True
         
