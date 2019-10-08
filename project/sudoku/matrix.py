@@ -1,7 +1,8 @@
-import element, csv
+import element, csv, matrix_row, matrix_column, matrix_square
 
 MATRIX_ROW_LENGTH = 9
 MATRIX_COLUMN_LENGTH = 9
+MATRIX_SQUARE_LENGTH = 9
 
 class matrix:
     def __init__(self):
@@ -23,73 +24,90 @@ class matrix:
         # 2-2、创建列列表
         MATRIX_ROW_LENGTH = length
         MATRIX_COLUMN_LENGTH = length
+        MATRIX_SQUARE_LENGTH = length
         if length == 4:
-            self.init_four_lvl()
+            self.create_four_lvl()
+            self.init_row_lvl_four()
+            self.init_column_lvl_four()
+            self.init_parts_lvl_four()
         elif length == 9:
             self.init_nine_lvl()
         else:
             print('wrong data!')
             quit()
 
-        # 为每行每列添加元素
-        for i in self.matrix_all:
-            self.matrix_rows[i.y].append(i)
-            self.matrix_columns[i.x].append(i)
-
         for line in self.matrix_rows:
             string = ''
-            for i in line:
+            for i in line.elements:
                 string += ' '
                 string += i.value
             print(string)
 
-        print('')
         for line in self.matrix_columns:
             string = ''
-            for i in line:
+            for i in line.elements:
                 string += ' '
                 string += i.value
             print(string)
 
-    def init_four_lvl(self):
+    def create_four_lvl(self):
+        # 创建行元素
         self.matrix_rows = []
-        self.matrix_row_0 = []
-        self.matrix_rows.append(self.matrix_row_0)
-        self.matrix_row_1 = []
-        self.matrix_rows.append(self.matrix_row_1)
-        self.matrix_row_2 = []
-        self.matrix_rows.append(self.matrix_row_2)
-        self.matrix_row_3 = []
-        self.matrix_rows.append(self.matrix_row_3)
+        cnt = 0
+        while cnt < MATRIX_ROW_LENGTH:
+            self.matrix_rows.append(matrix_row.matrix_row())
+            cnt += 1
 
+        # 创建列元素
         self.matrix_columns = []
-        self.matrix_column_0 = []
-        self.matrix_columns.append(self.matrix_column_0)
-        self.matrix_column_1 = []
-        self.matrix_columns.append(self.matrix_column_1)
-        self.matrix_column_2 = []
-        self.matrix_columns.append(self.matrix_column_2)
-        self.matrix_column_3 = []
-        self.matrix_columns.append(self.matrix_column_3)
+        cnt = 0
+        while cnt < MATRIX_COLUMN_LENGTH:
+            self.matrix_columns.append(matrix_column.matrix_column())
+            cnt += 1
 
-    def init_parts_lvl_four(self):
+        # 创建正方形元素
         self.matrix_parts = []
-        self.matrix_part_0 = []
-        self.matrix_parts.append(self.matrix_part_0)
-        self.matrix_part_0.append(self.matrix_row_0[0])
-        self.matrix_part_0.append(self.matrix_row_0[1])
-        self.matrix_part_0.append(self.matrix_row_1[0])
-        self.matrix_part_0.append(self.matrix_row_1[1])        
-        self.matrix_part_1 = []
-        self.matrix_parts.append(self.matrix_part_1)
-        self.matrix_part_1.append(self.matrix_row_0[2])
-        self.matrix_part_1.append(self.matrix_row_0[3])
+        cnt = 0
+        while cnt < MATRIX_SQUARE_LENGTH:
+            self.matrix_parts.append(matrix_square.matrix_square())
+            cnt += 1
+
+    def init_row_lvl_four(self):
+        for i in self.matrix_all:
+            self.matrix_rows[i.y].add(i)
+        for i in self.matrix_rows:
+            i.init_data()
+
+    def init_column_lvl_four(self):
+        for i in self.matrix_all:
+            self.matrix_columns[i.x].add(i)
+        for i in self.matrix_columns:
+            i.init_data()
+            
+    def init_parts_lvl_four(self):
+        self.matrix_parts[0].add(self.matrix_rows[0].elements[0])
+        self.matrix_parts[0].add(self.matrix_rows[0].elements[1])
+        self.matrix_parts[0].add(self.matrix_rows[1].elements[0])
+        self.matrix_parts[0].add(self.matrix_rows[1].elements[1])
+        self.matrix_parts[0].init_data()
+
+        self.matrix_parts[1].add(self.matrix_rows[0].elements[2])
+        self.matrix_parts[1].add(self.matrix_rows[0].elements[3])
+        self.matrix_parts[1].add(self.matrix_rows[1].elements[2])
+        self.matrix_parts[1].add(self.matrix_rows[1].elements[3])
+        self.matrix_parts[1].init_data()
         
-        self.matrix_part_2 = []
-        self.matrix_parts.append(self.matrix_part_2)
-        self.matrix_part_3 = []
-        self.matrix_parts.append(self.matrix_part_3)
-        
+        self.matrix_parts[2].add(self.matrix_rows[2].elements[0])
+        self.matrix_parts[2].add(self.matrix_rows[2].elements[1])
+        self.matrix_parts[2].add(self.matrix_rows[3].elements[0])
+        self.matrix_parts[2].add(self.matrix_rows[3].elements[1])
+        self.matrix_parts[2].init_data()
+
+        self.matrix_parts[3].add(self.matrix_rows[2].elements[2])
+        self.matrix_parts[3].add(self.matrix_rows[2].elements[3])
+        self.matrix_parts[3].add(self.matrix_rows[3].elements[2])
+        self.matrix_parts[3].add(self.matrix_rows[3].elements[3])
+        self.matrix_parts[3].init_data()
         
     def init_nine_lvl(self):
         self.matrix_rows = []
@@ -154,11 +172,36 @@ class matrix:
             return self.matrix_columns[x]
 
     def get_all_rows(self):
-        return self.matrix_columns
+        return self.matrix_rows
 
-    #def matrix_print(self):
-        #for line in self.d:
-            #print(line)
+    def get_one_square(self, row, column):
+        if (row >= 0 and row <= 1) and (column >= 0 and column <= 1):
+            return self.matrix_squares[0]
+        elif (row >=0 and row <= 1) and (column > 1 and column <= 3):
+            return self.matrix_squares[1]
+        elif (row > 1 and row <=3) and (column >=0 and column <= 1):
+            return self.matrix_squares[2]
+        else:
+            return self.matrix_squares[3]
+        
+    def get_all_squares(self):
+        return self.matrix_squares
+
+    def is_complete(self):
+        ret = True
+        for l in self.matrix_rows:
+            if l.zero_cnt != 0:
+                ret = False
+                break
+        return ret
+
+    def matrix_print(self):
+        for line in self.matrix_rows:
+            string = ''
+            for i in line.elements:
+                string += ' '
+                string += i.value
+            print(string)
 
     #def column_print(self, y):
         #print(self.get_one_column(y))

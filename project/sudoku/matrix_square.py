@@ -1,6 +1,6 @@
 import observe
 
-class matrix_column(observe.observe):
+class matrix_square(observe.observe):
         def __init__(self):
                 observe.observe.__init__(self)
                 self.elements = []
@@ -21,7 +21,7 @@ class matrix_column(observe.observe):
                 self.zero_item_list.remove(obj)
                 self.zero_cnt = len(self.zero_item_list)
                 for i in self.zero_item_list:
-                        i.possible_minus_for_column(obj.value)
+                        i.possible_minus_for_square(obj.value)
 
         def add_listener(self, obj):
                 obj.add(self)
