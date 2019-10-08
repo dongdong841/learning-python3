@@ -15,7 +15,7 @@ class matrix:
             x = 0
             length = len(line)
             for val in line:
-                self.matrix_all.append(element.element(x, y, val))
+                self.matrix_all.append(element.element(x, y, int(val)))
                 x = x+1
             y = y+1
 
@@ -40,14 +40,14 @@ class matrix:
             string = ''
             for i in line.elements:
                 string += ' '
-                string += i.value
+                string += str(i.value)
             print(string)
 
         for line in self.matrix_columns:
             string = ''
             for i in line.elements:
                 string += ' '
-                string += i.value
+                string += str(i.value)
             print(string)
 
     def create_four_lvl(self):
@@ -176,16 +176,16 @@ class matrix:
 
     def get_one_square(self, row, column):
         if (row >= 0 and row <= 1) and (column >= 0 and column <= 1):
-            return self.matrix_squares[0]
+            return self.matrix_parts[0]
         elif (row >=0 and row <= 1) and (column > 1 and column <= 3):
-            return self.matrix_squares[1]
+            return self.matrix_parts[1]
         elif (row > 1 and row <=3) and (column >=0 and column <= 1):
-            return self.matrix_squares[2]
+            return self.matrix_parts[2]
         else:
-            return self.matrix_squares[3]
+            return self.matrix_parts[3]
         
     def get_all_squares(self):
-        return self.matrix_squares
+        return self.matrix_parts
 
     def is_complete(self):
         ret = True
@@ -200,7 +200,7 @@ class matrix:
             string = ''
             for i in line.elements:
                 string += ' '
-                string += i.value
+                string += str(i.value)
             print(string)
 
     #def column_print(self, y):

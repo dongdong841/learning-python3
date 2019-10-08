@@ -10,8 +10,8 @@ class calc_lvl_four:
                                 # 找出这一行中缺少的值
                                 less_val_list = [1,2,3,4]
                                 for e in i.elements:
-                                        if e.val != 0:
-                                               less_val_list.remove(e.val)
+                                        if e.value != 0:
+                                               less_val_list.remove(e.value)
                                 # 为每个空元素初始化可能的值
                                 for e in i.zero_item_list:
                                         for val in less_val_list:
@@ -23,8 +23,8 @@ class calc_lvl_four:
                                 # 找出这一行中缺少的值
                                 less_val_list = [1,2,3,4]
                                 for e in i.elements:
-                                        if e.val != 0:
-                                               less_val_list.remove(e.val)
+                                        if e.value != 0:
+                                               less_val_list.remove(e.value)
                                 # 为每个空元素初始化可能的值
                                 for e in i.zero_item_list:
                                         for val in less_val_list:
@@ -36,8 +36,8 @@ class calc_lvl_four:
                                 # 找出这一行中缺少的值
                                 less_val_list = [1,2,3,4]
                                 for e in i.elements:
-                                        if e.val != 0:
-                                               less_val_list.remove(e.val)
+                                        if e.value != 0:
+                                               less_val_list.remove(e.value)
                                 # 为每个空元素初始化可能的值
                                 for e in i.zero_item_list:
                                         for val in less_val_list:
@@ -75,7 +75,7 @@ class calc_lvl_four:
                                         # 看看这个空元素的可能值是否与所在列和所在块的值冲突，将冲突的值删除
                                         # 1、获取所在列的已存在的元素值
                                         column_exsit_list = []
-                                        for i in m.get_one_column(e.x):
+                                        for i in m.get_one_column(e.x).elements:
                                                 if i.value != 0:
                                                         column_exsit_list.append(i.value)
                                         # 2、拿掉冲突的值
@@ -84,7 +84,7 @@ class calc_lvl_four:
                                                         confirm_list.remove(v)
                                         # 3、获取所在块的已存在的元素值
                                         square_exsit_list = []
-                                        for i in m.get_one_square(e.y, e.x):
+                                        for i in m.get_one_square(e.y, e.x).elements:
                                                 if i.value != 0:
                                                         square_exsit_list.append(i.value)
                                         # 4、拿掉冲突的值
@@ -93,3 +93,61 @@ class calc_lvl_four:
                                                         confirm_list.remove(v)
                                         if len(confirm_list) == 1:
                                                 e.chg_val(confirm_list[0])
+
+        def calc_column_exclude(self, m):
+                for line in m.get_all_column():
+                        # 本列是否缺少多个元素
+                        if line.zero_cnt > 1:
+                                for e in line.zero_item_list:
+                                        confirm_list = []
+                                        for v in e.column_possible:
+                                                confirm_list.append(v)
+                                        # 看看这个空元素的可能值是否与所在行和所在块的值冲突，将冲突的值删除
+                                        # 1、获取所在行的已存在的元素值
+                                        row_exsit_list = []
+                                        for i in m.get_one_row(e.y).elements:
+                                                if i.value != 0:
+                                                        row_exsit_list.append(i.value)
+                                        # 2、拿掉冲突的值
+                                        for v in confirm_list:
+                                                if v in row_exsit_list:
+                                                        confirm_list.remove(v)
+                                        # 3、获取所在块的已存在的元素值
+                                        square_exsit_list = []
+                                        for i in m.get_one_square(e.y, e.x).elements:
+                                                if i.value != 0:
+                                                        square_exsit_list.append(i.value)
+                                        # 4、拿掉冲突的值
+                                        for v in confirm_list:
+                                                if v in square_exsit_list:
+                                                        confirm_list.remove(v)
+                                        if len(confirm_list) == 1:
+                                                e.chg_val(confirm_list[0])
+
+        def calc_square_exclude(self, m):
+                for line in m.get_all_squares():
+                        # 本块是否缺少多个元素
+                        if line.zero_cnt > 1:
+                                for e in line.zero_item_list:
+                                        confirm_list = []
+                                        for v in e.square_possible:
+                                                confirm_list.append(v)
+                                        # 看看这个空元素的可能值是否与所在行和所在列的值冲突，将冲突的值删除
+                                        # 1、获取所在行的已存在的元素值
+                                        row_exsit_list = []
+                                        for i in m.get_one_row(e.y).elements:
+                                                if i.value != 0:
+                                                        row_exsit_list.append(i.value)
+                                        # 2、拿掉冲突的值
+                                        for v in confirm_list:
+                                                if v in row_exsit_list:
+                                                        confirm_list.remove(v)
+                                        # 3、获取所在列的已存在的元素值
+                                        column_exsit_list = []
+                                        for i in m.get_one_column(e.x).elements:
+                                                if i.value != 0:
+                                                        column_exsit_list.append(i.value)
+                                        # 4、拿掉冲突的值
+                                        for v in confirm_list:
+                                                if v in column_exsit_list:
+                                                        confirm_list.remove(v)

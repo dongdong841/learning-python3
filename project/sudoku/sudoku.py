@@ -18,8 +18,11 @@ while e.element.chg_flag == True and mgr.is_complete() == False:
     controler.calc_row_one_less(mgr)
     controler.calc_column_one_less(mgr)
     controler.calc_square_one_less(mgr)
+    controler.calc_row_exclude(mgr)
+    controler.calc_column_exclude(mgr)
+    controler.calc_square_exclude(mgr)
+    mgr.matrix_print()
 
-mgr.matrix_print()
 
 del mgr
 del controler
