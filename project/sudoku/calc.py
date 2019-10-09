@@ -4,6 +4,19 @@ class calc_lvl_four:
         def __init_(self):
                 pass
 
+        def choice_and_change(self, m):
+                # 遍历所有行，看看有没有空元素个数为2的
+                for line in m.get_all_rows():
+                        if line.zero_cnt == 2:
+                                line.zero_item_list[0].chg_val(line.zero_item_list[0].row_possible[0])
+                                return
+
+                # 遍历所有列，看看有没有空元素个数为2的
+                for column in m.get_all_column():
+                        if column.zero_cnt == 2:
+                                column.zero_item_list[0].chg_val(column.zero_item_list[0].column_possible[0])
+                                return
+
         def init_possible_for_row(self, m):
                 for i in m.matrix_rows:
                         if i.zero_cnt != 0:
