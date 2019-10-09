@@ -1,9 +1,5 @@
 import element, csv, matrix_row, matrix_column, matrix_square
 
-MATRIX_ROW_LENGTH = 9
-MATRIX_COLUMN_LENGTH = 9
-MATRIX_SQUARE_LENGTH = 9
-
 class matrix:
     def __init__(self):
         # 1、将初始数据读入到matrix_all列表中
@@ -22,9 +18,9 @@ class matrix:
         # 2、原始数据加工
         # 2-1、创建行列表
         # 2-2、创建列列表
-        MATRIX_ROW_LENGTH = length
-        MATRIX_COLUMN_LENGTH = length
-        MATRIX_SQUARE_LENGTH = length
+        self.MATRIX_ROW_LENGTH = length
+        self.MATRIX_COLUMN_LENGTH = length
+        self.MATRIX_SQUARE_LENGTH = length
         if length == 4:
             self.create_four_lvl()
             self.init_row_lvl_four()
@@ -36,39 +32,77 @@ class matrix:
             print('wrong data!')
             quit()
 
-        for line in self.matrix_rows:
-            string = ''
-            for i in line.elements:
-                string += ' '
-                string += str(i.value)
-            print(string)
+        print('原始数独数据：')
+        self.matrix_print()
 
-        for line in self.matrix_columns:
-            string = ''
-            for i in line.elements:
-                string += ' '
-                string += str(i.value)
-            print(string)
+        print('块数据：')
+        print('0块：')
+        string = ''
+        for i in self.matrix_parts[0].elements:
+            string += ' '
+            string += str(i.value)
+            string += '('
+            string += str(i.x)
+            string += str(i.y)
+            string += ')'
+        print(string)
+        print('')
+        print('块数据：')
+        print('1块：')
+        string = ''
+        for i in self.matrix_parts[1].elements:
+            string += ' '
+            string += str(i.value)
+            string += '('
+            string += str(i.x)
+            string += str(i.y)
+            string += ')'
+        print(string)
+        print('')
+        print('块数据：')
+        print('2块：')
+        string = ''
+        for i in self.matrix_parts[2].elements:
+            string += ' '
+            string += str(i.value)
+            string += '('
+            string += str(i.x)
+            string += str(i.y)
+            string += ')'
+        print(string)
+        print('')
+        print('块数据：')
+        print('3块：')
+        string = ''
+        for i in self.matrix_parts[3].elements:
+            string += ' '
+            string += str(i.value)
+            string += '('
+            string += str(i.x)
+            string += str(i.y)
+            string += ')'
+        print(string)
+        print('')
 
     def create_four_lvl(self):
         # 创建行元素
         self.matrix_rows = []
         cnt = 0
-        while cnt < MATRIX_ROW_LENGTH:
+        while cnt < self.MATRIX_ROW_LENGTH:
             self.matrix_rows.append(matrix_row.matrix_row())
             cnt += 1
 
         # 创建列元素
         self.matrix_columns = []
         cnt = 0
-        while cnt < MATRIX_COLUMN_LENGTH:
+        while cnt < self.MATRIX_COLUMN_LENGTH:
             self.matrix_columns.append(matrix_column.matrix_column())
             cnt += 1
 
         # 创建正方形元素
         self.matrix_parts = []
         cnt = 0
-        while cnt < MATRIX_SQUARE_LENGTH:
+        while cnt < self.MATRIX_SQUARE_LENGTH:
             self.matrix_parts.append(matrix_square.matrix_square())
             cnt += 1
 
@@ -151,14 +185,14 @@ class matrix:
         self.matrix_columns.append(self.matrix_column_8)
 
     def get_one_element(self, x, y):
-        if (x < MATRIX_ROW_LENGTH and x >= 0) and (y < MATRIX_COLUMN_LENGTH and y >= 0):
+        if (x < self.MATRIX_ROW_LENGTH and x >= 0) and (y < self.MATRIX_COLUMN_LENGTH and y >= 0):
             return (self.matrix_rows[x])[y]
         else:
             print('error x:'+str(x)+'error y:'+str(y))
             quit()
 
     def get_one_column(self, y):
-        if y < MATRIX_COLUMN_LENGTH and y >= 0:
+        if y < self.MATRIX_COLUMN_LENGTH and y >= 0:
             return self.matrix_columns[y]
         else:
             print('error y:'+str(y))
@@ -168,8 +202,8 @@ class matrix:
         return self.matrix_columns
 
     def get_one_row(self, x):
-        if x < MATRIX_ROW_LENGTH and x >= 0:
-            return self.matrix_columns[x]
+        if x < self.MATRIX_ROW_LENGTH and x >= 0:
+            return self.matrix_rows[x]
 
     def get_all_rows(self):
         return self.matrix_rows
@@ -202,6 +236,7 @@ class matrix:
                 string += ' '
                 string += str(i.value)
             print(string)
+        print('')
 
     #def column_print(self, y):
         #print(self.get_one_column(y))

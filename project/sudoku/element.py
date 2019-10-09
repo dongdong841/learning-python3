@@ -45,6 +45,7 @@ class element(subject.subject):
         if val != 0:
             self.row_possible.clear()
             self.column_possible.clear()
+            self.square_possible.clear()
             self.notify_observes()
         element.chg_flag = True
         

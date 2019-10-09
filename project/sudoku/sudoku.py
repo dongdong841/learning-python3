@@ -16,10 +16,15 @@ e.element.chg_flag = True
 while e.element.chg_flag == True and mgr.is_complete() == False:
     e.element.chg_flag = False
     controler.calc_row_one_less(mgr)
+    mgr.matrix_print()
     controler.calc_column_one_less(mgr)
+    mgr.matrix_print()
     controler.calc_square_one_less(mgr)
+    mgr.matrix_print()
     controler.calc_row_exclude(mgr)
+    mgr.matrix_print()
     controler.calc_column_exclude(mgr)
+    mgr.matrix_print()
     controler.calc_square_exclude(mgr)
     mgr.matrix_print()
 
