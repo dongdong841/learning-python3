@@ -1,3 +1,4 @@
+import time as t
 import matrix as m
 import calc as c
 import element as e
@@ -14,6 +15,8 @@ controler.init_possible_for_square(mgr)
 
 e.element.chg_flag = True
 while mgr.is_complete() == False:
+    # 增加0.5秒的进程挂起，让出cpu，避免本程序运行时其它程序被卡死
+    t.sleep(0.5)
     if e.element.chg_flag == True:
         e.element.chg_flag = False
         controler.calc_row_one_less(mgr)
